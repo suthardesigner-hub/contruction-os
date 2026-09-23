@@ -1,0 +1,13 @@
+# ConstructOS P0 Acceptance Gates
+- [ ] Non-achieved/partial target cannot submit without reason.
+- [ ] Agency cannot access another agency commercial/private data.
+- [ ] Vendor sees only own RFQ/PO/payment status.
+- [ ] Client cannot access internal margin.
+- [ ] Accepted GRN quantity cannot exceed received quantity.
+- [ ] Stock issue can never create negative balance.
+- [ ] Measurement certification requires human approval.
+- [ ] Concealed-work hold point cannot close without evidence + human approval.
+- [ ] Critical transitions emit audit and domain events.
+- [ ] Magic links expire, revoke and enforce permission scope.
+- [ ] Media is referenced by storage key; no DB blobs/permanent public URLs.
+- [ ] Offline/retry operations are idempotent before production merge.

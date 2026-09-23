@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import{closeDailyProgress,issueStock,threeWayMatch,paymentEligibility,closeHoldPoint,canUseMagicLink}from'../src/kernel.mjs';
+test('missed work requires reason',()=>assert.throws(()=>closeDailyProgress({plannedQty:10,achievedQty:5,evidenceIds:['e']})));
+test('achieved work requires evidence',()=>assert.throws(()=>closeDailyProgress({plannedQty:10,achievedQty:10,evidenceIds:[]})));
+test('negative stock blocked',()=>assert.throws(()=>issueStock(10,11)));
+test('three way mismatch blocks payment path',()=>assert.equal(threeWayMatch({poQty:100,grnAcceptedQty:80,invoiceQty:90,poRate:50,invoiceRate:50}).paymentException,true));
+test('uncertified measurement blocked',()=>assert.equal(paymentEligibility({certified:false,certifiedValue:1000}).status,'BLOCKED'));
+test('net payable deductions',()=>assert.equal(paymentEligibility({certified:true,certifiedValue:1000,retention:100,advanceRecovery:50,deduction:25}).net,825));
+test('hold point needs evidence',()=>assert.throws(()=>closeHoldPoint([],true)));
+test('hold point needs human approval',()=>assert.throws(()=>closeHoldPoint(['e'],false)));
+test('expired magic link rejected',()=>assert.equal(canUseMagicLink({expiresAt:'2026-01-01T00:00:00Z',usedCount:0,maxUses:1},new Date('2026-09-23T00:00:00Z')).ok,false));
